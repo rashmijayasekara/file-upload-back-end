@@ -40,10 +40,11 @@ public class ServletUpload extends HttpServlet {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-//            BlobProxy.generateProxy() only availble in native hibernate
+//            BlobProxy.generateProxy() only available in native hibernate
             byte[] bytes = profilepic.getInputStream().readAllBytes();
             SerialBlob serialBlob = new SerialBlob(bytes);
             User user = new User(fullName, username, password, new SerialBlob(serialBlob));
+
 
             session.persist(user);
             session.getTransaction().commit();
